@@ -1,17 +1,12 @@
-FROM ubuntu:16.04
+FROM nginx_lua
 
 MAINTAINER mbayser@br.ibm.com
 
 WORKDIR /root/
 
-RUN apt-get update -y && apt-get install -y \
-  bzip2 \
-  gcc \
-  nginx \
-  python3 \
-  python3-dev \
-  python3-pip \
-  supervisor && pip3 install uwsgi flask && apt-get remove -y gcc python3-dev python3-pip && apt-get clean
+WORKDIR /
+ADD setup.sh /root
+RUN /bin/bash /root/setup.sh
   
 COPY app.py /root/app.py
 COPY uwsgi.ini /root/uwsgi.ini
@@ -23,4 +18,5 @@ VOLUME /input_files
 
 RUN mkdir /sockets
 
+WORKDIR /root/
 CMD /usr/bin/supervisord

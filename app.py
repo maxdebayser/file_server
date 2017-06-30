@@ -74,11 +74,6 @@ def file_upload():
                     break
                 extractedFile.write(piece)
                     
-        
-        #extractedFileName = DOWNLOAD_DIR +"/"+full_filename
-        #extractedFile     = open(extractedFileName, 'w')
-        #extractedFile.write(parsed['file'].value)
-        #extractedFile.close()
         mpart.close()
         
         return "SUCCESS", 200
